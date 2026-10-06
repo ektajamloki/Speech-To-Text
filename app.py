@@ -6,23 +6,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# 1. Setup AssemblyAI Key
 aai.settings.api_key = os.getenv("aai.api_key")
 
-# Page Config
 st.set_page_config(page_title="HCL Live Speech-to-Text", page_icon="🎙️", layout="centered")
 st.title("🎙️ HCL Live Speech-to-Text Converter")
 st.write("Record your voice live or upload a file to convert speech to text instantly.")
 
-# Tabs for File Upload vs Live Recording
 tab1, tab2 = st.tabs(["🔴 Live Voice Recorder", "📁 Upload Audio File"])
 
-# --- TAB 1: LIVE VOICE RECORDING ---
 with tab1:
     st.subheader("Speak into your Microphone")
     st.write("Click the mic icon to START recording. Click again to STOP.")
     
-    # Live Microphone Trigger Component
     audio_bytes = audio_recorder(
         text="Click to record",
         recording_color="#e85a4f",
@@ -33,7 +28,6 @@ with tab1:
     if audio_bytes:
         st.audio(audio_bytes, format="audio/wav")
         
-        # Save live bytes temporarily
         temp_live_file = "live_recording.wav"
         with open(temp_live_file, "wb") as f:
             f.write(audio_bytes)
@@ -52,7 +46,6 @@ with tab1:
                     if os.path.exists(temp_live_file):
                         os.remove(temp_live_file)
 
-# --- TAB 2: FILE UPLOADER (FALLBACK) ---
 with tab2:
     st.subheader("Upload an existing Audio File")
     uploaded_file = st.file_uploader("Choose a file", type=["wav", "mp3"])
