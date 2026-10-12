@@ -1,12 +1,13 @@
 import streamlit as st
 import assemblyai as aai
+import streamlit as st
 from audio_recorder_streamlit import audio_recorder
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-aai.settings.api_key = os.getenv("aai.api_key")
+aai.settings.api_key = os.getenv("aai.api_key")  or st.secrets.get("aai.api_key")
 
 st.set_page_config(page_title="HCL Live Speech-to-Text", page_icon="🎙️", layout="centered")
 st.title("🎙️ HCL Live Speech-to-Text Converter")
