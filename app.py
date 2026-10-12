@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 aai.settings.api_key = os.getenv("aai.api_key")  or st.secrets.get("aai.api_key")
+transcriber = aai.Transcriber()
 
 st.set_page_config(page_title="HCL Live Speech-to-Text", page_icon="🎙️", layout="centered")
 st.title("🎙️ HCL Live Speech-to-Text Converter")
